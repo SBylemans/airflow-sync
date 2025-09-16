@@ -57,9 +57,8 @@ with DAG(
     t2 = SparkSubmitOperator(
         task_id="transform_csv",
         application="https://github.com/SBylemans/airflow-sync/blob/main/spark.py",
-        conn_id='spark_default',
+        conn_id='spark',
         conf=spark_conf,
         verbose=True,
-        conn_id='spark',
     )
     t1 >> t2
