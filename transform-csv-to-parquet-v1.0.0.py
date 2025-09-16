@@ -60,5 +60,6 @@ with DAG(
         conn_id='spark',
         conf=spark_conf,
         verbose=True,
+        deploy_mode='cluster'
     )
     t1 >> t2
