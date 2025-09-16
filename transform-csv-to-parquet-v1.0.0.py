@@ -60,5 +60,6 @@ with DAG(
         conn_id='spark_default',
         conf=spark_conf,
         verbose=True,
+        conn_id='spark',
     )
     t1 >> t2
