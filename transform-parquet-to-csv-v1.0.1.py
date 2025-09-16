@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
     
 @dag(
-    "transform-parquet-to-csv-v1.0.0",
+    "transform-parquet-to-csv-v1.0.1",
     # These args will get passed on to each operator
     # You can override them on a per-task basis during operator initialization
     default_args={
@@ -25,7 +25,7 @@ from datetime import datetime, timedelta
 )
 def transform_parquet_to_csv():
 
-    @task
+    @task()
     def transform():
         storage_options = {
             'key': 'admin',
