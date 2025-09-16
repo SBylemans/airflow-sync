@@ -7,7 +7,7 @@ from airflow import DAG
 
 # Operators; we need this to operate!
 from airflow.operators.bash import BashOperator
-from airflow.providers.apache.spark import SparkSubmitOperator
+from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
 
 with DAG(
     "transform-to-csv-v1.0.0",
