@@ -36,4 +36,6 @@ def transform_parquet_to_csv():
         df = pd.read_parquet('s3://titanic/passengers.parquet', storage_options=storage_options)
         df.to_csv('s3://titanic/passengers.csv', storage_options=storage_options)
     
+    transform()
+
 transform_parquet_to_csv()
