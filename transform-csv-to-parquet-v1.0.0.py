@@ -7,7 +7,7 @@ from airflow import DAG
 
 # Operators; we need this to operate!
 from airflow.operators.bash import BashOperator
-from airflow.contrib.operators.spark_submit_operator import SparkSubmitOperator
+from airflow.providers.apache.spark import SparkSubmitOperator
 
 with DAG(
     "transform-to-csv-v1.0.0",
@@ -35,22 +35,22 @@ with DAG(
     )
 
     spark_conf = {
-    # Point spark to your Kubernetes API server (in-cluster example below)
-    'spark.master': 'k8s://https://192.168.49.2:8443',
-    # Kubernetes namespace where Spark driver/executors will be created
-    'spark.kubernetes.namespace': 'spark',
-    # Image that contains Spark runtime + your app (or at least Spark runtime and access to application)
-    'spark.kubernetes.container.image': 'apache/spark:4.0.1-scala2.13-java17-python3-r-ubuntu',
-    # Service account for the driver pod (must have RBAC to create executor pods)
-    'spark.kubernetes.authenticate.driver.serviceAccountName': 'spark',
-    # Optional: pod template to control volumes, nodeSelector, tolerations, etc.
-    # 'spark.kubernetes.driver.podTemplateFile': '/opt/airflow/pod_template_driver.yaml',
-    # 'spark.kubernetes.executor.podTemplateFile': '/opt/airflow/pod_template_executor.yaml',
-    # Tweak resources
-    'spark.kubernetes.executor.request.cores': '500m',
-    'spark.kubernetes.executor.memory': '2g',
-    'spark.kubernetes.driver.memory': '2g',
-    # Any other spark confs you need
+        # Point spark to your Kubernetes API server (in-cluster example below)
+        'spark.master': 'k8s://https://192.168.49.2:8443',
+        # Kubernetes namespace where Spark driver/executors will be created
+        'spark.kubernetes.namespace': 'spark',
+        # Image that contains Spark runtime + your app (or at least Spark runtime and access to application)
+        'spark.kubernetes.container.image': 'apache/spark:4.0.1-scala2.13-java17-python3-r-ubuntu',
+        # Service account for the driver pod (must have RBAC to create executor pods)
+        'spark.kubernetes.authenticate.driver.serviceAccountName': 'spark',
+        # Optional: pod template to control volumes, nodeSelector, tolerations, etc.
+        # 'spark.kubernetes.driver.podTemplateFile': '/opt/airflow/pod_template_driver.yaml',
+        # 'spark.kubernetes.executor.podTemplateFile': '/opt/airflow/pod_template_executor.yaml',
+        # Tweak resources
+        'spark.kubernetes.executor.request.cores': '500m',
+        'spark.kubernetes.executor.memory': '2g',
+        'spark.kubernetes.driver.memory': '2g',
+        # Any other spark confs you need
     }
 
     t2 = SparkSubmitOperator(
