@@ -37,7 +37,7 @@ with DAG(
 
     spark_conf = {
         # Point spark to your Kubernetes API server (in-cluster example below)
-        'spark.master': 'k8s://https://192.168.49.2:8443',
+        'spark.master': 'k8s://https://127.0.0.1:50388',
         # Kubernetes namespace where Spark driver/executors will be created
         'spark.kubernetes.namespace': 'spark',
         # Image that contains Spark runtime + your app (or at least Spark runtime and access to application)
@@ -56,8 +56,7 @@ with DAG(
 
     t2 = SparkSubmitOperator(
         task_id="transform_csv",
-        application="https://github.com/SBylemans/airflow-sync/blob/main/spark.py",
-        conn_id='spark',
+        application="./spark.py",
         conf=spark_conf,
         verbose=True,
         deploy_mode='cluster'
