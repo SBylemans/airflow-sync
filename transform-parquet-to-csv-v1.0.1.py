@@ -28,13 +28,13 @@ def transform_parquet_to_csv():
     @task()
     def transform():
         storage_options = {
-            'key': 'admin',
-            'secret': 'admin12345',
+            'key': 'local-access',
+            'secret': 'local-secret',
             'endpoint_url': 'http://minio:9000'
         }
 
-        df = pd.read_parquet('s3://titanic/passengers.parquet', storage_options=storage_options)
-        df.to_csv('s3://titanic/passengers.csv', storage_options=storage_options)
+        df = pd.read_csv('s3://test/test.csv', storage_options=storage_options)
+        df.to_parquet('s3://test/test.parquet', storage_options=storage_options)
     
     transform()
 
