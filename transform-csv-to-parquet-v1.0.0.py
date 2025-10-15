@@ -46,8 +46,6 @@ with DAG(
         "spark.hadoop.fs.s3a.path.style.access": "true",
         "spark.hadoop.fs.s3a.impl": "org.apache.hadoop.fs.s3a.S3AFileSystem",
         "spark.hadoop.fs.s3a.aws.credentials.provider": "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider",
-        "spark.jars.packages": "software.amazon.awssdk:bundle:2.33.13,org.apache.hadoop:hadoop-aws:3.3.6",
-        "spark.jars.ivy": "/tmp/.ivy",
         "spark.executor.extraJavaOptions": "-Dcom.amazonaws.services.s3.enableV4=true",
         "spark.driver.extraJavaOptions": "-Dcom.amazonaws.services.s3.enableV4=true",
         "spark.hadoop.fs.s3a.connection.establish.timeout" : 30000,
@@ -60,6 +58,7 @@ with DAG(
         application="local:///opt/spark-app/spark.py",
         conf=spark_conf,
         verbose=True,
-        deploy_mode='cluster'
+        deploy_mode='cluster',
+        packages="software.amazon.awssdk:bundle:2.33.13,org.apache.hadoop:hadoop-aws:3.3.6"
     )
     t1 >> t2
