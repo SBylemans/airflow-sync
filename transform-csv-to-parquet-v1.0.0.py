@@ -36,12 +36,23 @@ with DAG(
     )
 
     spark_conf = {
-         "spark.kubernetes.container.image": "ghcr.io/sbylemans/hera-deploy-spark:v0.0.20",
-         "spark.executor.extraJavaOptions": "-Dcom.amazonaws.services.s3.enableV4=true",
-         "spark.driver.extraJavaOptions": "-Dcom.amazonaws.services.s3.enableV4=true",
-         "spark.hadoop.fs.s3a.connection.establish.timeout": 30000,
-         "spark.hadoop.fs.s3a.threads.keepalivetime": 60000,
-         "spark.hadoop.fs.s3a.multipart.purge.age": 86400000
+        "spark.kubernetes.container.image":"ghcr.io/sbylemans/hera-deploy-spark:v0.0.20",
+        "spark.executor.memory":"2G",
+        "spark.executor.cores": 2,
+        "spark.hadoop.fs.s3a.connection.timeout": 6000,
+        "spark.hadoop.fs.s3a.endpoint": "http://minio:10000",
+        "spark.hadoop.fs.s3a.access.key": "local-access",
+        "spark.hadoop.fs.s3a.secret.key": "local-secret",
+        "spark.hadoop.fs.s3a.path.style.access": "true",
+        "spark.hadoop.fs.s3a.impl": "org.apache.hadoop.fs.s3a.S3AFileSystem",
+        "spark.hadoop.fs.s3a.aws.credentials.provider": "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider",
+        "spark.jars.packages": "software.amazon.awssdk:bundle:2.33.13,org.apache.hadoop:hadoop-aws:3.3.6",
+        "spark.jars.ivy": "/tmp/.ivy",
+        "spark.executor.extraJavaOptions": "-Dcom.amazonaws.services.s3.enableV4=true",
+        "spark.driver.extraJavaOptions": "-Dcom.amazonaws.services.s3.enableV4=true",
+        "spark.hadoop.fs.s3a.connection.establish.timeout" : 30000,
+        "spark.hadoop.fs.s3a.threads.keepalivetime" : 60000,
+        "spark.hadoop.fs.s3a.multipart.purge.age" : 86400000
     }
 
     t2 = SparkSubmitOperator(
