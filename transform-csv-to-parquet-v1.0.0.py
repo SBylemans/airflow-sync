@@ -36,27 +36,17 @@ with DAG(
     )
 
     spark_conf = {
-        # Point spark to your Kubernetes API server (in-cluster example below)
-        'spark.master': 'k8s://https://127.0.0.1:50388',
-        # Kubernetes namespace where Spark driver/executors will be created
-        'spark.kubernetes.namespace': 'spark',
-        # Image that contains Spark runtime + your app (or at least Spark runtime and access to application)
-        'spark.kubernetes.container.image': 'apache/spark:4.0.1-scala2.13-java17-python3-r-ubuntu',
-        # Service account for the driver pod (must have RBAC to create executor pods)
-        'spark.kubernetes.authenticate.driver.serviceAccountName': 'spark',
-        # Optional: pod template to control volumes, nodeSelector, tolerations, etc.
-        # 'spark.kubernetes.driver.podTemplateFile': '/opt/airflow/pod_template_driver.yaml',
-        # 'spark.kubernetes.executor.podTemplateFile': '/opt/airflow/pod_template_executor.yaml',
-        # Tweak resources
-        'spark.kubernetes.executor.request.cores': '500m',
-        'spark.kubernetes.executor.memory': '2g',
-        'spark.kubernetes.driver.memory': '2g',
-        # Any other spark confs you need
+         "spark.kubernetes.container.image": "ghcr.io/sbylemans/hera-deploy-spark:v0.0.20",
+         "spark.executor.extraJavaOptions": "-Dcom.amazonaws.services.s3.enableV4=true",
+         "spark.driver.extraJavaOptions": "-Dcom.amazonaws.services.s3.enableV4=true",
+         "spark.hadoop.fs.s3a.connection.establish.timeout": 30000,
+         "spark.hadoop.fs.s3a.threads.keepalivetime": 60000,
+         "spark.hadoop.fs.s3a.multipart.purge.age": 86400000
     }
 
     t2 = SparkSubmitOperator(
         task_id="transform_csv",
-        application="./spark.py",
+        application="local:///opt/spark-app/spark.py",
         conf=spark_conf,
         verbose=True,
         deploy_mode='cluster'
