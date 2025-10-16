@@ -36,7 +36,7 @@ with DAG(
     )
 
     spark_conf = {
-        "spark.kubernetes.container.image":"ghcr.io/sbylemans/hera-deploy-spark:v0.0.23",
+        "spark.kubernetes.container.image":"ghcr.io/sbylemans/hera-deploy-spark:v0.0.24",
         "spark.kubernetes.namespace": "airflow",
         "spark.executor.memory":"2G",
         "spark.executor.cores": 2,
