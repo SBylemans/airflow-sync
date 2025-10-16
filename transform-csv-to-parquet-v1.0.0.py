@@ -37,6 +37,7 @@ with DAG(
 
     spark_conf = {
         "spark.kubernetes.container.image":"ghcr.io/sbylemans/hera-deploy-spark:v0.0.21",
+        "spark.kubernetes.namespace": "airflow",
         "spark.executor.memory":"2G",
         "spark.executor.cores": 2,
         "spark.hadoop.fs.s3a.connection.timeout": 6000,
