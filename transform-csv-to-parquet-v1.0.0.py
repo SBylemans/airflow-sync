@@ -41,7 +41,7 @@ with DAG(
         "spark.executor.memory":"2G",
         "spark.executor.cores": 2,
         "spark.hadoop.fs.s3a.connection.timeout": 6000,
-        "spark.hadoop.fs.s3a.endpoint": "http://minio:10000",
+        "spark.hadoop.fs.s3a.endpoint": "http://minio:9000",
         "spark.hadoop.fs.s3a.access.key": "local-access",
         "spark.hadoop.fs.s3a.secret.key": "local-secret",
         "spark.hadoop.fs.s3a.path.style.access": "true",
