@@ -36,7 +36,7 @@ with DAG(
     )
 
     spark_conf = {
-        "spark.kubernetes.container.image":"ghcr.io/sbylemans/hera-deploy-spark:v0.0.20",
+        "spark.kubernetes.container.image":"ghcr.io/sbylemans/hera-deploy-spark:v0.0.21",
         "spark.executor.memory":"2G",
         "spark.executor.cores": 2,
         "spark.hadoop.fs.s3a.connection.timeout": 6000,
