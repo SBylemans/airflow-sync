@@ -58,7 +58,6 @@ with DAG(
         application="local:///opt/spark-app/spark.py",
         conf=spark_conf,
         verbose=True,
-        deploy_mode='cluster',
-        packages="software.amazon.awssdk:bundle:2.33.13,org.apache.hadoop:hadoop-aws:3.3.6"
+        deploy_mode='cluster'
     )
     t1 >> t2
